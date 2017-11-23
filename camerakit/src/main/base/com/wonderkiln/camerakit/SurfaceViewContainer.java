@@ -45,9 +45,15 @@ public class SurfaceViewContainer extends FrameLayout {
         if (mPreviewSize != null) {
             previewWidth = mPreviewSize.getWidth();
             previewHeight = mPreviewSize.getHeight();
+            
+            //add landscape
+            if (curOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                previewWidth = mPreviewSize.getHeight();
+                previewHeight = mPreviewSize.getWidth();
+            }
         }
-
-        if (width * previewHeight > height * previewWidth) {
+//turn > to <
+        if (width * previewHeight < height * previewWidth) {
             final int scaledChildHeight = previewHeight * width / previewWidth;
             child.layout(0, (height - scaledChildHeight) / 2, width, (height + scaledChildHeight) / 2);
         } else {
