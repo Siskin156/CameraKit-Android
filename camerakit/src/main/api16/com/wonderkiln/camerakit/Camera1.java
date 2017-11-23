@@ -314,8 +314,16 @@ public class Camera1 extends CameraImpl {
                         @Override
                         public void onPreviewFrame(byte[] data, Camera camera) {
                             Camera.Parameters parameters = camera.getParameters();
-                            int width = parameters.getPreviewSize().width;
-                            int height = parameters.getPreviewSize().height;
+                            //fix the Deformation at the landscape
+                            int width,height;
+                            if(parameters.getPreviewSize().width>parameters.getPreviewSize().height){
+                                 width = parameters.getPreviewSize().width;
+                                 height = parameters.getPreviewSize().height;
+                            }
+                            else{
+                                height = parameters.getPreviewSize().width;
+                                width = parameters.getPreviewSize().height;
+                            }
                             int rotation = calculatePreviewRotation();
 
                             YuvOperator yuvOperator = new YuvOperator(data, width, height);
